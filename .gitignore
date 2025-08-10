@@ -1,0 +1,14 @@
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore build output
+build/
+
+# Ignore Python virtual environments
+venv/
+
+# Ignore workspace settings file
+mhosein-engine.code-workspace
+
+*.pyc
