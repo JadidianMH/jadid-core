@@ -12,3 +12,8 @@ venv/
 mhosein-engine.code-workspace
 
 *.pyc
+
+*.sh
+*.o
+*.a
+*.so
