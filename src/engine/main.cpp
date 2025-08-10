@@ -1,11 +1,12 @@
 #include <iostream>
-
+#include "prepare_sdl.h"
 
 using namespace std;
 
+
 int main() {
 
-    cout << "Hello from Cmake!" << endl;
+    PrepareSDL();
 
     return 0;
 
