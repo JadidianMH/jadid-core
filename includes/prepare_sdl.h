@@ -1,6 +1,9 @@
-#ifndef PREPARE_SDL_H
-#define PREPARE_SDL_H
+#pragma once
+#include <SDL2/SDL.h>
 
-int PrepareSDL();
+struct SDLData {
+    SDL_Window* window;
+    SDL_Surface* surface;
+};
 
-#endif
+SDLData PrepareSDL(int windowWidth, int windowHeight);

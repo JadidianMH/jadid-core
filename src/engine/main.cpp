@@ -1,12 +1,15 @@
 #include <iostream>
-#include "prepare_sdl.h"
+#include "engine.h"
 
 using namespace std;
 
+static int WINDOW_WIDTH = 640;
+static int WINDOW_HEIGHT = 480;
 
 int main() {
 
-    PrepareSDL();
+    Engine::PrepareEngine();
+    Engine::RunEngine();
 
     return 0;
 
