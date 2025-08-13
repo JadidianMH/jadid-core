@@ -8,6 +8,9 @@ build/
 # Ignore Python virtual environments
 venv/
 
+# Ignore JetBrains IDE files
+.idea/
+
 # Ignore workspace settings file
 mhosein-engine.code-workspace
 
