@@ -3,14 +3,13 @@
 
 using namespace std;
 
-static int WINDOW_WIDTH = 640;
-static int WINDOW_HEIGHT = 480;
-
 int main() {
 
-    Engine::PrepareEngine();
-    Engine::RunEngine();
+    auto [window, surface] = Engine::PrepareEngine();
+    Engine::RunEngine(window, surface);
+    Engine::QuitEngine(window);
 
     return 0;
 
 }
+
