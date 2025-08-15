@@ -5,9 +5,11 @@ using namespace std;
 
 int main() {
 
-    auto [window, surface] = Engine::PrepareEngine();
-    Engine::RunEngine(window, surface);
-    Engine::QuitEngine(window);
+    const bool DEBUG = true;
+
+    auto [window, renderer] = Engine::PrepareEngine(DEBUG);
+    Engine::RunEngine(window, renderer, DEBUG);
+    Engine::QuitEngine(window, renderer);
 
     return 0;
 

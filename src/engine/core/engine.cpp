@@ -3,31 +3,34 @@
 #include "config.h"
 #include <iostream>
 #include "loop_management_sdl.h"
-#include <ctime>
+#include "debug.h"
 
 namespace Engine {
 
     // Prepare the SDL for the engine
-    SDLData PrepareEngine() {
+    SDLData PrepareEngine(bool DEBUG = false) {
 
         std::cout << "Preparing the engine..." << std::endl;
 
         // Read the configuration
         const window_data config = ReadConfig();
-        const int WINDOW_WIDTH = config.width;
+        const int WINDOW_WIDTH = config.width + (DEBUG ? 200 : 0);
         const int WINDOW_HEIGHT = config.height;
 
         return PrepareSDL(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
     // Run the engine
-    void RunEngine(SDL_Window* window, SDL_Surface* surface) {
+    void RunEngine(SDL_Window* window, SDL_Renderer* renderer, bool DEBUG = false) {
 
         std::cout << "Running the engine..." << std::endl;
 
-        SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, 0, 0, 0));
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
 
-        SDL_UpdateWindowSurface(window);
+        int width, height;
+        SDL_GetWindowSize(window, &width, &height);
 
         bool running = true;
 
@@ -36,16 +39,25 @@ namespace Engine {
             SDL_Event event;
             running = LoopManager::EventControl(&event);
 
+            SDL_SetRenderDrawColor(renderer, 5, 60, 110, 255);
+            SDL_RenderClear(renderer);
+
+            if (DEBUG)
+            {
+                DrawDebug(renderer);
+            }
+
+            SDL_RenderPresent(renderer);
         }
 
         std::cout << "Engine is stopped..." << std::endl;
-
     }
 
     // Quit the engine
-    void QuitEngine(SDL_Window* window )
+    void QuitEngine(SDL_Window* window, SDL_Renderer* renderer)
     {
-        SDL_DestroyWindow( window );
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
         SDL_Quit();
     }
 

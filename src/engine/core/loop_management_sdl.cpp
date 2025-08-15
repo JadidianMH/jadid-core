@@ -20,4 +20,3 @@ bool LoopManager::EventControl(SDL_Event* event)
 
     return true;
 }
-

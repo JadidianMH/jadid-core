@@ -22,5 +22,7 @@ endforeach()
 
 
 
-add_executable(engine ${SRC_FILES})
+add_executable(engine ${SRC_FILES}
+        src/engine/render/debug.cpp
+        includes/debug.h)
 target_link_libraries(engine ${SDL2_LIBRARIES})

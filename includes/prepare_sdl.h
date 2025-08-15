@@ -3,7 +3,7 @@
 
 struct SDLData {
     SDL_Window* window;
-    SDL_Surface* surface;
+    SDL_Renderer* renderer;
 };
 
 SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT);

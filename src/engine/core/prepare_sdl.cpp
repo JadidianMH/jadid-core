@@ -5,44 +5,40 @@
 using namespace std;
 
 SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
-
     SDL_Window* window = nullptr;
-    SDL_Surface* surface = nullptr;
+    SDL_Renderer* renderer = nullptr;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr << "SDL error: " << SDL_GetError() << std::endl;
+        cerr << "SDL error: " << SDL_GetError() << endl;
         return {nullptr, nullptr};
     }
-
     cout << "SDL initialized successfully." << endl;
 
     window = SDL_CreateWindow(
-        "Game Engine", 
-        SDL_WINDOWPOS_CENTERED, 
-        SDL_WINDOWPOS_CENTERED, 
-        WINDOW_WIDTH, 
-        WINDOW_HEIGHT, 
+        "Game Engine",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        WINDOW_WIDTH,
+        WINDOW_HEIGHT,
         SDL_WINDOW_SHOWN
     );
-    
     if (!window) {
-        std::cerr << "SDL error: " << SDL_GetError() << std::endl;
+        cerr << "SDL error: " << SDL_GetError() << endl;
         SDL_Quit();
         return {nullptr, nullptr};
     }
-
     cout << "Window created successfully." << endl;
 
-    surface = SDL_GetWindowSurface(window);
-    if (!surface) {
-        std::cerr << "SDL error: " << SDL_GetError() << std::endl;
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        cerr << "SDL error: " << SDL_GetError() << endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
         return {nullptr, nullptr};
     }
+    cout << "Renderer created successfully." << endl;
 
-    cout << "Surface created successfully." << endl << "PrepareSDL Done." << endl;
+    cout << "PrepareSDL Done." << endl;
 
-    return {window, surface};
-
+    return {window, renderer};
 }
