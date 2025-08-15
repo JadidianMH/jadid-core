@@ -14,7 +14,7 @@ namespace Engine {
 
         // Read the configuration
         const window_data config = ReadConfig();
-        const int WINDOW_WIDTH = config.width + (DEBUG ? 200 : 0);
+        const int WINDOW_WIDTH = config.width;
         const int WINDOW_HEIGHT = config.height;
 
         return PrepareSDL(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -25,12 +25,8 @@ namespace Engine {
 
         std::cout << "Running the engine..." << std::endl;
 
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
-
+        // get window width and height for debug
         int width, height;
-        SDL_GetWindowSize(window, &width, &height);
 
         bool running = true;
 
@@ -39,12 +35,14 @@ namespace Engine {
             SDL_Event event;
             running = LoopManager::EventControl(&event);
 
+            SDL_GetWindowSize(window, &width, &height);
+
             SDL_SetRenderDrawColor(renderer, 5, 60, 110, 255);
             SDL_RenderClear(renderer);
 
             if (DEBUG)
             {
-                DrawDebug(renderer);
+                DrawDebug(renderer, width, height);
             }
 
             SDL_RenderPresent(renderer);

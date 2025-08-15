@@ -4,18 +4,8 @@
 
 using namespace std;
 
-void DrawDebug(SDL_Renderer* renderer)
+void DrawDebug(SDL_Renderer* renderer, int ww, int wh)
 {
-    string txt = "sone random text";
-    SDL_Rect rect;
-    rect.x = 800;
-    rect.y = 0;
-    rect.w = 200;
-    rect.h = 600;
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-
-    SDL_RenderDrawRect(renderer, &rect);
-    SDL_RenderFillRect(renderer, &rect);
-    SDL_RenderPresent(renderer);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderDrawLine(renderer, ww - 250, 0, ww - 250, wh);
 }

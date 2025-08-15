@@ -20,7 +20,7 @@ SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
         SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH,
         WINDOW_HEIGHT,
-        SDL_WINDOW_SHOWN
+        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
     );
     if (!window) {
         cerr << "SDL error: " << SDL_GetError() << endl;
