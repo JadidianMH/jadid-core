@@ -5,6 +5,7 @@
 #include "loop_management_sdl.h"
 #include "debug.h"
 #include "loader.h"
+#include <text_renderer.h>
 
 namespace Engine {
 
@@ -27,6 +28,8 @@ namespace Engine {
     // Run the engine
     void RunEngine(SDL_Window* window, SDL_Renderer* renderer, bool DEBUG = false) {
 
+
+
         AddLog("Engine started");
 
         TTF_Font* font = TTF_OpenFont("font.ttf", 16);
@@ -42,6 +45,8 @@ namespace Engine {
         int frames = 0;
         int fps = 0;
 
+        int w,h;
+
         while (running)
         {
             running = LoopManager::EventControl(&event);
@@ -53,19 +58,36 @@ namespace Engine {
 
 
             frames++;
+
+            SDL_GetWindowSize(window, &w, &h);
+
+            static unsigned int fpsTextId = 0;
+
             Uint64 currentTime = SDL_GetTicks64();
-            if (currentTime - lastTime >= 1000) {
-                fps = frames;
-                AddLog(std::to_string(fps));
-                std::cout << "FPS: " << frames << std::endl;
+            if (currentTime - lastTime >= 1000)
+            {
+                std::string fpsText = "fps: " + std::to_string(frames);
+                if (fpsTextId == 0)
+                {
+                    fpsTextId = TextRenderer::Instance()
+                        .AddText(renderer, "fps: 0", w - 100, h - 35, {255,255,255,255}, font);
+                }
+                else
+                {
+                    TextRenderer::Instance().UpdateText(fpsTextId, renderer ,fpsText , font, {255,255,255,255});
+                }
+
                 frames = 0;
                 lastTime = currentTime;
             }
+
 
             if (DEBUG)
             {
                 DrawDebug(renderer, height, font);
             }
+
+            TextRenderer::Instance().Draw(renderer);
 
             SDL_RenderPresent(renderer);
         }
@@ -73,6 +95,7 @@ namespace Engine {
         TTF_CloseFont(font);
 
         AddLog("Quiting the engine");
+        ClearLogs();
     }
 
     // Quit the engine
