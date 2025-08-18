@@ -17,8 +17,8 @@ foreach(file ${SRC_FILES})
 endforeach()
 
 add_executable(engine ${SRC_FILES}
-        src/engine/render/renderer.cpp
-        includes/renderer.h)
+        src/engine/render/text_renderer.cpp
+        includes/text_renderer.h)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
