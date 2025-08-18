@@ -1,6 +1,7 @@
 #include "loop_management_sdl.h"
 #include <SDL2/SDL.h>
 #include <iostream>
+#include "debug.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ bool LoopManager::EventControl(SDL_Event* event)
         }
         if (event->type == SDL_KEYDOWN)
         {
-            cout << "Key: " << event->key.keysym.sym << endl;
+            AddLog("pressed: " + std::to_string(event->key.keysym.sym));
         }
     }
 

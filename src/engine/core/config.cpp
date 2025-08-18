@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "config.h"
+#include "debug.h"
 
 window_data ReadConfig() {
 
@@ -10,17 +11,20 @@ window_data ReadConfig() {
     // Open data/config.txt
     std::ifstream configFile(std::string(DATA_DIR) + "config.txt");
     if (!configFile.is_open()) {
+        AddLog("Couldn't open the config file");
         throw std::runtime_error("Could not open config file");
     }
 
     configFile >> config.width;
     configFile >> config.height;
-    std::getline(configFile, config.title);
+    configFile >> config.title;
 
-    std::cout << "Config loaded: "
-        << "Width: " << config.width
-        << ", Height: " << config.height
-        << ", Title: " << config.title << std::endl;
+    AddLog(
+        "window created: w="
+        + std::to_string(config.width)
+        + ", h=" + std::to_string(config.height)
+        + ", title="
+        + config.title);
     return config;
 
 }

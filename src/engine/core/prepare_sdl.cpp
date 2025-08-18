@@ -1,10 +1,11 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <prepare_sdl.h>
+#include "debug.h"
 
 using namespace std;
 
-SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
+SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT, const char* WINDOW_TITLE) {
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
 
@@ -12,10 +13,11 @@ SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
         cerr << "SDL error: " << SDL_GetError() << endl;
         return {nullptr, nullptr};
     }
-    cout << "SDL initialized successfully." << endl;
+
+    AddLog("SDL initialized successfully");
 
     window = SDL_CreateWindow(
-        "Game Engine",
+        WINDOW_TITLE,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH,
@@ -27,7 +29,7 @@ SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
         SDL_Quit();
         return {nullptr, nullptr};
     }
-    cout << "Window created successfully." << endl;
+    AddLog("Window created successfully.");
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
@@ -36,9 +38,9 @@ SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT) {
         SDL_Quit();
         return {nullptr, nullptr};
     }
-    cout << "Renderer created successfully." << endl;
+    AddLog("Renderer created successfully.");
 
-    cout << "PrepareSDL Done." << endl;
+    AddLog("PrepareSDL Done.");
 
     return {window, renderer};
 }
