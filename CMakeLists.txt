@@ -11,14 +11,16 @@ add_definitions(-DDATA_DIR="${PROJECT_SOURCE_DIR}/data/")
 file(GLOB_RECURSE SRC_FILES
         ${PROJECT_SOURCE_DIR}/src/*.cpp
 )
+
+add_executable(engine ${SRC_FILES}
+        src/engine/object/game_object.cpp
+        includes/game_object.h
+        includes/component.h)
+
 message(STATUS "Source files:")
 foreach(file ${SRC_FILES})
     message(STATUS "  ${file}")
 endforeach()
-
-add_executable(engine ${SRC_FILES}
-        src/engine/render/text_renderer.cpp
-        includes/text_renderer.h)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)

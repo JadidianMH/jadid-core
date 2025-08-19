@@ -5,7 +5,7 @@
 #include "loop_management_sdl.h"
 #include "debug.h"
 #include "loader.h"
-#include <text_renderer.h>
+
 
 namespace Engine {
 
@@ -28,8 +28,6 @@ namespace Engine {
     // Run the engine
     void RunEngine(SDL_Window* window, SDL_Renderer* renderer, bool DEBUG = false) {
 
-
-
         AddLog("Engine started");
 
         TTF_Font* font = TTF_OpenFont("font.ttf", 16);
@@ -46,6 +44,7 @@ namespace Engine {
         int fps = 0;
 
         int w,h;
+
 
         while (running)
         {
@@ -67,15 +66,7 @@ namespace Engine {
             if (currentTime - lastTime >= 1000)
             {
                 std::string fpsText = "fps: " + std::to_string(frames);
-                if (fpsTextId == 0)
-                {
-                    fpsTextId = TextRenderer::Instance()
-                        .AddText(renderer, "fps: 0", w - 100, h - 35, {255,255,255,255}, font);
-                }
-                else
-                {
-                    TextRenderer::Instance().UpdateText(fpsTextId, renderer ,fpsText , font, {255,255,255,255});
-                }
+
 
                 frames = 0;
                 lastTime = currentTime;
@@ -86,8 +77,6 @@ namespace Engine {
             {
                 DrawDebug(renderer, height, font);
             }
-
-            TextRenderer::Instance().Draw(renderer);
 
             SDL_RenderPresent(renderer);
         }
