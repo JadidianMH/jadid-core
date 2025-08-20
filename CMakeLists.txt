@@ -15,7 +15,9 @@ file(GLOB_RECURSE SRC_FILES
 add_executable(engine ${SRC_FILES}
         src/engine/object/game_object.cpp
         includes/game_object.h
-        includes/component.h)
+        includes/component.h
+        src/engine/component/Transform.cpp
+        includes/Transform.h)
 
 message(STATUS "Source files:")
 foreach(file ${SRC_FILES})

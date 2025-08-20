@@ -4,7 +4,9 @@
 #include <iostream>
 #include "loop_management_sdl.h"
 #include "debug.h"
+#include "game_object.h"
 #include "loader.h"
+#include "Transform.h"
 
 
 namespace Engine {
@@ -45,6 +47,11 @@ namespace Engine {
 
         int w,h;
 
+        GameObject* player = new GameObject("player");
+
+        Transform* playerTransform = player->AddComponent<Transform>();
+
+        playerTransform->setPosition({0,0});
 
         while (running)
         {
@@ -63,6 +70,11 @@ namespace Engine {
             static unsigned int fpsTextId = 0;
 
             Uint64 currentTime = SDL_GetTicks64();
+
+            playerTransform->move({5,5});
+            AddLog(std::to_string(playerTransform->getPosition().x)+std::to_string(playerTransform->getPosition().y));
+
+
             if (currentTime - lastTime >= 1000)
             {
                 std::string fpsText = "fps: " + std::to_string(frames);

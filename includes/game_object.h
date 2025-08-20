@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include <utility>
 #include <vector>
 #include "component.h"
 
@@ -6,8 +8,12 @@ class GameObject
 {
 private:
     std::vector<Component*> components;
+    std::string nameGameObject;
 public:
-    GameObject() {}
+    GameObject(const std::string& name)
+    {
+        nameGameObject = name;
+    }
     ~GameObject()
     {
         for (auto component : components) delete component;
@@ -36,7 +42,5 @@ public:
             }
         }
     }
-
-
 
 };
