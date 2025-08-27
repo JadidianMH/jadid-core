@@ -34,16 +34,10 @@ namespace Engine {
 
         TTF_Font* font = TTF_OpenFont("font.ttf", 16);
 
-        // get window width and height for debug
         int width, height;
-
         bool running = true;
-
         SDL_Event event;
-
-        Uint64 lastTime = SDL_GetTicks64();
         int frames = 0;
-        int fps = 0;
 
         int w,h;
 
@@ -67,22 +61,9 @@ namespace Engine {
 
             SDL_GetWindowSize(window, &w, &h);
 
-            static unsigned int fpsTextId = 0;
 
-            Uint64 currentTime = SDL_GetTicks64();
-
-            playerTransform->move({5,5});
-            AddLog(std::to_string(playerTransform->getPosition().x)+std::to_string(playerTransform->getPosition().y));
-
-
-            if (currentTime - lastTime >= 1000)
-            {
-                std::string fpsText = "fps: " + std::to_string(frames);
-
-
-                frames = 0;
-                lastTime = currentTime;
-            }
+            playerTransform->move({1,1});
+            AddLog(std::to_string(playerTransform->getPosition().x)+" "+std::to_string(playerTransform->getPosition().y));
 
 
             if (DEBUG)
