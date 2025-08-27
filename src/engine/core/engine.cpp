@@ -2,10 +2,11 @@
 #include "prepare_sdl.h"
 #include "config.h"
 #include <iostream>
-#include "loop_management_sdl.h"
+#include "event_manager.h"
 #include "debug.h"
 #include "game_object.h"
 #include "loader.h"
+#include "sprite_renderer.h"
 #include "Transform.h"
 
 
@@ -44,6 +45,12 @@ namespace Engine {
         GameObject* player = new GameObject("player");
 
         Transform* playerTransform = player->AddComponent<Transform>();
+        player->AddComponent<sprite_renderer>("player.png", 5);
+
+        GameObject* player2 = new GameObject("player");
+
+        Transform* playerTransform2 = player2->AddComponent<Transform>();
+        player2->AddComponent<sprite_renderer>("player.png", 10);
 
         playerTransform->setPosition({0,0});
 
@@ -61,15 +68,14 @@ namespace Engine {
 
             SDL_GetWindowSize(window, &w, &h);
 
-
-            playerTransform->move({1,1});
-            AddLog(std::to_string(playerTransform->getPosition().x)+" "+std::to_string(playerTransform->getPosition().y));
+            playerTransform->scale({.1f,.1f});
 
 
             if (DEBUG)
             {
                 DrawDebug(renderer, height, font);
             }
+            RenderAllSprites(renderer);
 
             SDL_RenderPresent(renderer);
         }
