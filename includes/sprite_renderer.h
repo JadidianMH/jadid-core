@@ -4,11 +4,11 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-class SpriteRenderer : public Component
+class sprite_renderer : public Component
 {
 public:
-    SpriteRenderer(GameObject* go, const std::string& spritePath, int z = 0);
-    ~SpriteRenderer();
+    sprite_renderer(GameObject* go, const std::string& spritePath, int z = 0);
+    ~sprite_renderer();
 
     void Render(SDL_Renderer* renderer);
 
@@ -17,6 +17,7 @@ public:
 private:
     SDL_Texture* texture;
     std::string path;
+    int width, height;
 
     void LoadTexture(SDL_Renderer* renderer);
 };

@@ -1,4 +1,10 @@
 #pragma once
-#include "game_object.h"
+#include <SDL2/SDL.h>
+#include <vector>
 
-void render(GameObject* gameObjects);
+class GameObject;
+
+void RegisterGameObject(GameObject* go);
+void RenderAllSprites(SDL_Renderer* renderer);
+
+extern std::vector<GameObject*> allGameObjects;

@@ -3,8 +3,8 @@
 
 struct Vector2
 {
-    int x;
-    int y;
+    float x;
+    float y;
 };
 
 class Transform : public Component {
@@ -12,13 +12,13 @@ public:
     Transform(GameObject* go) : Component(go) {}
 private:
     // position on the screen
-    int x, y;
+    int x = 0, y= 0;
 
     // rotation
     int rotation;
 
     // x and y scales
-    int sx, sy;
+    float sx = 1, sy = 1;
 public:
     // sum of the current position and the given values
     void move(const Vector2& distance);

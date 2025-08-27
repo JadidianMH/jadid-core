@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include "component.h"
+#include "renderQueue.h"
 
 class GameObject
 {
@@ -13,6 +14,7 @@ public:
     GameObject(const std::string& name)
     {
         nameGameObject = name;
+        RegisterGameObject(this);
     }
     ~GameObject()
     {
