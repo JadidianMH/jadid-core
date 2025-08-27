@@ -1,4 +1,4 @@
-#include "loop_management_sdl.h"
+#include "event_manager.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "debug.h"
