@@ -17,7 +17,11 @@ add_executable(engine ${SRC_FILES}
         includes/game_object.h
         includes/component.h
         src/engine/component/Transform.cpp
-        includes/Transform.h)
+        includes/Transform.h
+        src/engine/component/SpriteRenderer.cpp
+        includes/SpriteRenderer.h
+        src/engine/render/renderQueue.cpp
+        includes/renderQueue.h)
 
 message(STATUS "Source files:")
 foreach(file ${SRC_FILES})
