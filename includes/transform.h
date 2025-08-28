@@ -7,12 +7,12 @@ struct Vector2
     float y;
 };
 
-class Transform : public Component {
+class transform : public Component {
 public:
-    Transform(GameObject* go) : Component(go) {}
+    transform(GameObject* go) : Component(go) {}
 private:
     // position on the screen
-    int x = 0, y= 0;
+    float x = 0, y= 0;
 
     // rotation
     int rotation;
