@@ -16,8 +16,8 @@ add_executable(engine ${SRC_FILES}
         src/engine/object/game_object.cpp
         includes/game_object.h
         includes/component.h
-        src/engine/component/Transform.cpp
-        includes/Transform.h
+        src/engine/component/transform.cpp
+        includes/transform.h
         src/engine/component/sprite_renderer.cpp
         includes/sprite_renderer.h
         src/engine/render/renderQueue.cpp
