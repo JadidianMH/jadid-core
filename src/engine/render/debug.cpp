@@ -12,8 +12,6 @@ const size_t maxLogs = 6;
 
 void DrawDebug(SDL_Renderer* renderer, int wh, TTF_Font* font)
 {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderDrawLine(renderer, 250, 0, 250, wh);
     int y = 10;
     SDL_Color color = {255, 255, 255, 255};
 
