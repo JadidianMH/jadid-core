@@ -22,7 +22,7 @@ SDLData PrepareSDL(int WINDOW_WIDTH, int WINDOW_HEIGHT, const char* WINDOW_TITLE
         SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH,
         WINDOW_HEIGHT,
-        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
+        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_RENDERER_PRESENTVSYNC
     );
     if (!window) {
         cerr << "SDL error: " << SDL_GetError() << endl;
