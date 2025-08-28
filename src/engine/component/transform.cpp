@@ -1,40 +1,40 @@
 #include "transform.h"
 
 
-void transform::move(const Vector2& distance)
+void Transform::move(const Vector2& distance)
 {
     x += distance.x;
     y += distance.y;
 }
 
-void transform::rotate(const int& angle)
+void Transform::rotate(const int& angle)
 {
     rotation = angle;
 }
 
-void transform::scale(const Vector2& size)
+void Transform::scale(const Vector2& size)
 {
     sx = size.x;
     sy = size.y;
 }
 
-void transform::setPosition(const Vector2& position)
+void Transform::setPosition(const Vector2& position)
 {
     x = position.x;
     y = position.y;
 }
 
-Vector2 transform::getPosition() const
+Vector2 Transform::getPosition() const
 {
     return {x, y};
 }
 
-Vector2 transform::getScale() const
+Vector2 Transform::getScale() const
 {
     return {sx, sy};
 }
 
-int transform::getRotation() const
+int Transform::getRotation() const
 {
     return rotation;
 }

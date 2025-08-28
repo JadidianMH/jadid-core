@@ -5,5 +5,5 @@
 class LoopManager
 {
 public:
-    static bool EventControl(SDL_Event* event, transform* playerTransform);
+    static bool EventControl(SDL_Event* event, Transform* playerTransform);
 };

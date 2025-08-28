@@ -44,7 +44,7 @@ namespace Engine {
 
         auto* player = new GameObject("player");
 
-        auto* playerTransform = player->AddComponent<transform>();
+        auto* playerTransform = player->AddComponent<Transform>();
         player->AddComponent<SpriteRenderer>("player.png", 5);
         playerTransform->scale({.2,.2});
 
@@ -52,7 +52,7 @@ namespace Engine {
         playerTransform->setPosition({0,0});
 
         auto* ground = new GameObject("ground");
-        auto* groundTransform = ground->AddComponent<transform>();
+        auto* groundTransform = ground->AddComponent<Transform>();
         auto* groundSprite = ground->AddComponent<SpriteRenderer>("bg.png", 2);
 
         groundTransform->setPosition({0,0});

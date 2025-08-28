@@ -6,7 +6,7 @@
 
 using namespace std;
 
-bool LoopManager::EventControl(SDL_Event* event, transform* playerTransform)
+bool LoopManager::EventControl(SDL_Event* event, Transform* playerTransform)
 {
     while (SDL_PollEvent(event))
     {

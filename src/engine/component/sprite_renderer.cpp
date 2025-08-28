@@ -38,10 +38,10 @@ void SpriteRenderer::Render(SDL_Renderer* renderer)
 
     SDL_Rect dst;
 
-    dst.x = gameObject->GetComponent<transform>()->getPosition().x;
-    dst.y = gameObject->GetComponent<transform>()->getPosition().y;
-    dst.w = gameObject->GetComponent<transform>()->getScale().x * width;
-    dst.h = gameObject->GetComponent<transform>()->getScale().y * height;
+    dst.x = gameObject->GetComponent<Transform>()->getPosition().x;
+    dst.y = gameObject->GetComponent<Transform>()->getPosition().y;
+    dst.w = gameObject->GetComponent<Transform>()->getScale().x * width;
+    dst.h = gameObject->GetComponent<Transform>()->getScale().y * height;
 
     SDL_RenderCopy(renderer, texture, nullptr, &dst);
 
