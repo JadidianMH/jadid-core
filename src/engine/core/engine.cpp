@@ -7,7 +7,7 @@
 #include "game_object.h"
 #include "loader.h"
 #include "sprite_renderer.h"
-#include "Transform.h"
+#include "transform.h"
 
 
 namespace Engine {
@@ -42,21 +42,25 @@ namespace Engine {
 
         int w,h;
 
-        GameObject* player = new GameObject("player");
+        auto* player = new GameObject("player");
 
-        Transform* playerTransform = player->AddComponent<Transform>();
-        player->AddComponent<sprite_renderer>("player.png", 5);
+        auto* playerTransform = player->AddComponent<transform>();
+        player->AddComponent<SpriteRenderer>("player.png", 5);
+        playerTransform->scale({.2,.2});
 
-        GameObject* player2 = new GameObject("player");
-
-        Transform* playerTransform2 = player2->AddComponent<Transform>();
-        player2->AddComponent<sprite_renderer>("player.png", 10);
 
         playerTransform->setPosition({0,0});
 
+        auto* ground = new GameObject("ground");
+        auto* groundTransform = ground->AddComponent<transform>();
+        auto* groundSprite = ground->AddComponent<SpriteRenderer>("bg.png", 2);
+
+        groundTransform->setPosition({0,0});
+
+
         while (running)
         {
-            running = LoopManager::EventControl(&event);
+            running = LoopManager::EventControl(&event, playerTransform);
 
             SDL_GetWindowSize(window, &width, &height);
 
@@ -71,11 +75,10 @@ namespace Engine {
             playerTransform->scale({.1f,.1f});
 
 
-            if (DEBUG)
-            {
-                DrawDebug(renderer, height, font);
-            }
             RenderAllSprites(renderer);
+
+            if (DEBUG) DrawDebug(renderer, height, font);
+
 
             SDL_RenderPresent(renderer);
         }
