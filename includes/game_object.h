@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 #include "component.h"
+#include "debug.h"
 #include "renderQueue.h"
 
 class GameObject
@@ -25,6 +26,7 @@ public:
     T* AddComponent(Args&&... args) {
         T* comp = new T(this, std::forward<Args>(args)...);
         components.push_back(comp);
+        AddLog("Added component to "+ nameGameObject +".");
         return comp;
     }
 
