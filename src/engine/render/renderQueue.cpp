@@ -19,7 +19,7 @@ void RenderAllSprites(SDL_Renderer* renderer)
 
     for (GameObject* go : allGameObjects)
     {
-        if (go->GetComponent<sprite_renderer>() != nullptr)
+        if (go->GetComponent<SpriteRenderer>() != nullptr)
         {
             renderableObjects.push_back(go);
         }
@@ -27,13 +27,13 @@ void RenderAllSprites(SDL_Renderer* renderer)
 
     std::sort(renderableObjects.begin(), renderableObjects.end(),
         [](GameObject* a, GameObject* b) {
-            return a->GetComponent<sprite_renderer>()->zIndex < b->GetComponent<sprite_renderer>()->zIndex;
+            return a->GetComponent<SpriteRenderer>()->zIndex < b->GetComponent<SpriteRenderer>()->zIndex;
         }
     );
 
     for (GameObject* go : renderableObjects)
     {
-        auto sr = go->GetComponent<sprite_renderer>();
+        auto sr = go->GetComponent<SpriteRenderer>();
         sr->Render(renderer);
     }
 }
