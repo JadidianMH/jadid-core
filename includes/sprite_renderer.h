@@ -4,11 +4,11 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-class sprite_renderer : public Component
+class SpriteRenderer : public Component
 {
 public:
-    sprite_renderer(GameObject* go, const std::string& spritePath, int z = 0);
-    ~sprite_renderer();
+    SpriteRenderer(GameObject* go, const std::string& spritePath, int z = 0);
+    ~SpriteRenderer();
 
     void Render(SDL_Renderer* renderer);
 

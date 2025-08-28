@@ -1,14 +1,15 @@
 #include "sprite_renderer.h"
 
+#include "debug.h"
 #include "game_object.h"
 #include "loader.h"
-#include "Transform.h"
+#include "transform.h"
 
-sprite_renderer::sprite_renderer(GameObject* go, const std::string& spritePath, int z) :
+SpriteRenderer::SpriteRenderer(GameObject* go, const std::string& spritePath, int z) :
     Component(go), path(spritePath), zIndex(z)
 {}
 
-sprite_renderer::~sprite_renderer()
+SpriteRenderer::~SpriteRenderer()
 {
     if (texture)
     {
@@ -16,16 +17,17 @@ sprite_renderer::~sprite_renderer()
     }
 }
 
-void sprite_renderer::LoadTexture(SDL_Renderer* renderer)
+void SpriteRenderer::LoadTexture(SDL_Renderer* renderer)
 {
     if (!texture)
     {
         texture = ImageLoader(renderer, path);
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+        AddLog("Sprite Loaded");
     }
 }
 
-void sprite_renderer::Render(SDL_Renderer* renderer)
+void SpriteRenderer::Render(SDL_Renderer* renderer)
 {
     if (!texture)
     {
@@ -36,10 +38,10 @@ void sprite_renderer::Render(SDL_Renderer* renderer)
 
     SDL_Rect dst;
 
-    dst.x = gameObject->GetComponent<Transform>()->getPosition().x;
-    dst.y = gameObject->GetComponent<Transform>()->getPosition().y;
-    dst.w = gameObject->GetComponent<Transform>()->getScale().x * width;
-    dst.h = gameObject->GetComponent<Transform>()->getScale().y * height;
+    dst.x = gameObject->GetComponent<transform>()->getPosition().x;
+    dst.y = gameObject->GetComponent<transform>()->getPosition().y;
+    dst.w = gameObject->GetComponent<transform>()->getScale().x * width;
+    dst.h = gameObject->GetComponent<transform>()->getScale().y * height;
 
     SDL_RenderCopy(renderer, texture, nullptr, &dst);
 
