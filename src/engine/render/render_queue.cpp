@@ -1,39 +1,25 @@
 #include "render_queue.h"
-#include <algorithm>
-#include <iostream>
-
-#include "sprite_renderer.h"
 #include "game_object.h"
+#include "sprite_renderer.h"
+#include <algorithm>
 #include <vector>
-
-std::vector<GameObject*> allGameObjects;
-
-void RegisterGameObject(GameObject* go)
-{
-    allGameObjects.push_back(go);
-}
 
 void RenderAllSprites(SDL_Renderer* renderer)
 {
     std::vector<GameObject*> renderableObjects;
 
-    for (GameObject* go : allGameObjects)
+    for (auto go : GameObject::GetAllGameObjects())
     {
-        if (go->GetComponent<SpriteRenderer>() != nullptr)
-        {
+        if (go->GetComponent<SpriteRenderer>())
             renderableObjects.push_back(go);
-        }
     }
 
     std::sort(renderableObjects.begin(), renderableObjects.end(),
-        [](GameObject* a, GameObject* b) {
-            return a->GetComponent<SpriteRenderer>()->zIndex < b->GetComponent<SpriteRenderer>()->zIndex;
-        }
-    );
+              [](GameObject* a, GameObject* b) {
+                  return a->GetComponent<SpriteRenderer>()->zIndex <
+                         b->GetComponent<SpriteRenderer>()->zIndex;
+              });
 
-    for (GameObject* go : renderableObjects)
-    {
-        auto sr = go->GetComponent<SpriteRenderer>();
-        sr->Render(renderer);
-    }
+    for (auto go : renderableObjects)
+        go->GetComponent<SpriteRenderer>()->Render(renderer);
 }
