@@ -5,7 +5,6 @@
 #include "component.h"
 #include "sprite_renderer.h"
 #include "debug.h"
-#include <SDL2/SDL.h>
 
 class GameObject
 {
@@ -34,21 +33,6 @@ public:
         return nullptr;
     }
 
-    static void RenderAllSprites(SDL_Renderer* renderer) {
-        std::vector<GameObject*> renderableObjects;
-        for (auto go : allGameObjects)
-            if (go->GetComponent<SpriteRenderer>())
-                renderableObjects.push_back(go);
-
-        std::sort(renderableObjects.begin(), renderableObjects.end(),
-                  [](GameObject* a, GameObject* b) {
-                      return a->GetComponent<SpriteRenderer>()->zIndex <
-                             b->GetComponent<SpriteRenderer>()->zIndex;
-                  });
-
-        for (auto go : renderableObjects)
-            go->GetComponent<SpriteRenderer>()->Render(renderer);
-    }
-
     static const std::vector<GameObject*>& GetAllGameObjects() { return allGameObjects; }
+    static void RegisterGameObject(GameObject* go);
 };
