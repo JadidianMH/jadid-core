@@ -8,7 +8,7 @@ window_data ReadConfig() {
 
     window_data config;
 
-    // Open data/config.txt
+    // Open config/config.txt
     std::ifstream configFile(std::string(DATA_DIR) + "config.txt");
     if (!configFile.is_open()) {
         AddLog("Couldn't open the config file");
