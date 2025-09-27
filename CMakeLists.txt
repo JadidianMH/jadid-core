@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(${PROJECT_SOURCE_DIR}/includes)
 include_directories(/usr/include/SDL2)
 
-add_definitions(-DDATA_DIR="${PROJECT_SOURCE_DIR}/data/")
+add_definitions(-DDATA_DIR="${PROJECT_SOURCE_DIR}/config/")
 
 file(GLOB_RECURSE SRC_FILES
         ${PROJECT_SOURCE_DIR}/src/*.cpp
@@ -20,8 +20,8 @@ add_executable(engine ${SRC_FILES}
         includes/transform.h
         src/engine/component/sprite_renderer.cpp
         includes/sprite_renderer.h
-        src/engine/render/renderQueue.cpp
-        includes/renderQueue.h)
+        src/engine/render/render_queue.cpp
+        includes/render_queue.h)
 
 message(STATUS "Source files:")
 foreach(file ${SRC_FILES})
