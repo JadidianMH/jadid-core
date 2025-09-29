@@ -21,7 +21,11 @@ add_executable(engine ${SRC_FILES}
         src/engine/component/sprite_renderer.cpp
         includes/sprite_renderer.h
         src/engine/render/render_queue.cpp
-        includes/render_queue.h)
+        includes/render_queue.h
+        src/engine/object/scene.cpp
+        includes/scene.h
+        src/engine/object/scene_manager.cpp
+        includes/scene_manager.h)
 
 message(STATUS "Source files:")
 foreach(file ${SRC_FILES})

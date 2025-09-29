@@ -4,11 +4,13 @@
 #include <algorithm>
 #include <vector>
 
+#include "scene_manager.h"
+
 void RenderAllSprites(SDL_Renderer* renderer)
 {
     std::vector<GameObject*> renderableObjects;
 
-    for (auto go : GameObject::GetAllGameObjects())
+    for (auto go : SceneManager::GetActiveScene()->GetAllGameObjects())
     {
         if (go->GetComponent<SpriteRenderer>())
             renderableObjects.push_back(go);
