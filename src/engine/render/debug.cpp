@@ -4,16 +4,15 @@
 #include "SDL2/SDL.h"
 #include <string>
 
-using namespace std;
-
 
 std::deque<LogEntry> logs;
-const size_t maxLogs = 6;
+size_t maxLogs = 20;
 
-void DrawDebug(SDL_Renderer* renderer, int wh, TTF_Font* font)
+void DrawDebug(SDL_Renderer* renderer, size_t setMaxLogs, TTF_Font* font)
 {
+    maxLogs = setMaxLogs;
     int y = 10;
-    SDL_Color color = {255, 255, 255, 255};
+    const SDL_Color color = {255, 255, 255, 255};
 
     for (auto& log : logs) {
         if (!log.texture) {

@@ -9,6 +9,6 @@ struct LogEntry {
     int width;
     int height;
 };
-void DrawDebug(SDL_Renderer* renderer, int wh, TTF_Font* font);
+void DrawDebug(SDL_Renderer* renderer, size_t setMaxLogs, TTF_Font* font);
 void AddLog(const std::string& message);
 void ClearLogs();

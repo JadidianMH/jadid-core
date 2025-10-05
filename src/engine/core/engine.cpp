@@ -1,13 +1,10 @@
 #include "engine.h"
 #include "prepare_sdl.h"
 #include "config.h"
-#include <iostream>
 #include "input_manager.h"
 #include "debug.h"
-#include "game_object.h"
 #include "loader.h"
-#include "sprite_renderer.h"
-#include "transform.h"
+#include "render_queue.h"
 
 
 namespace Engine {
@@ -36,9 +33,15 @@ namespace Engine {
         while (running) {
             Input::Update();
             if (Input::QuitRequested()) running = false;
+            int width, height;
+            SDL_GetWindowSize(window, &width, &height);
 
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
             SDL_RenderClear(renderer);
+
+            if (DEBUG) {
+                DrawDebug(renderer, height / 12, font);
+            }
 
             SDL_RenderPresent(renderer);
         }
