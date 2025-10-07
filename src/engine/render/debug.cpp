@@ -1,12 +1,15 @@
 #include "debug.h"
 #include <SDL2/SDL_ttf.h>
 #include <deque>
+#include <iostream>
+
 #include "SDL2/SDL.h"
 #include <string>
+#include <bits/ostream.tcc>
 
 
 std::deque<LogEntry> logs;
-size_t maxLogs = 20;
+size_t maxLogs = 40;
 
 void DrawDebug(SDL_Renderer* renderer, size_t setMaxLogs, TTF_Font* font)
 {
@@ -40,6 +43,7 @@ void AddLog(const std::string& message)
         }
         logs.pop_front();
     }
+
 }
 void ClearLogs() {
     for (auto& log : logs) {

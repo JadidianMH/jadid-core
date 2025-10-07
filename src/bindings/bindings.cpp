@@ -1,16 +1,16 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include "scene.h"
 #include "game_object.h"
 #include "component.h"
 #include "transform.h"
 #include "sprite_renderer.h"
 #include "input_manager.h"
 #include "scene_manager.h"
+#include <iostream>
 
 namespace py = pybind11;
-
-class Scene; // forward declaration
 
 PYBIND11_MODULE(engine, m) {
     m.doc() = "Bindings for game engine (selective exposure)";
@@ -19,6 +19,9 @@ PYBIND11_MODULE(engine, m) {
         .def(py::init<>())
         .def_readwrite("x", &Vector2::x)
         .def_readwrite("y", &Vector2::y);
+
+    py::class_<Scene>(m, "Scene")
+        .def("get_name", &Scene::getSceneName);
 
     py::class_<Component>(m, "Component")
         .def("get_gameobject", [](Component* c) {
@@ -67,8 +70,22 @@ PYBIND11_MODULE(engine, m) {
     }, py::arg("scancode"));
 
     m.def("create_scene", [](const std::string& name) -> Scene* {
-        return SceneManager::CreateScene(name);
+        try {
+            Scene* scene = SceneManager::CreateScene(name);
+            if (!scene)
+                throw std::runtime_error("SceneManager::CreateScene returned nullptr (scene not created)");
+            return scene;
+        }
+        catch (const std::exception& e) {
+            PyErr_SetString(PyExc_RuntimeError, e.what());
+            return nullptr;
+        }
+        catch (...) {
+            PyErr_SetString(PyExc_RuntimeError, "Unknown C++ exception in create_scene");
+            return nullptr;
+        }
     }, py::arg("name"), py::return_value_policy::reference);
+
 
     m.def("unload_scene", [](Scene* s) {
         SceneManager::UnloadScene(s);
@@ -88,9 +105,9 @@ PYBIND11_MODULE(engine, m) {
 
     m.def("clear_all_scenes", []() {
         SceneManager::ClearAllScenes();
-    });
+    }),
 
-    py::class_<Scene>(m, "Scene")
-    .def("get_name", &Scene::getSceneName);
+    m.def("log", &AddLog, "Add a message to debug logs");
 
+    m.def("clear_logs", &ClearLogs);
 }

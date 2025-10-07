@@ -5,6 +5,7 @@
 #include "debug.h"
 #include "loader.h"
 #include "render_queue.h"
+#include "script_manager.h"
 
 
 namespace Engine {
@@ -22,6 +23,8 @@ namespace Engine {
         const int WINDOW_HEIGHT = config.height;
         const char* WINDOW_TITLE = config.title.c_str();
 
+        ScriptManager::start();
+
         return PrepareSDL(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     }
 
@@ -29,6 +32,8 @@ namespace Engine {
     void RunEngine(SDL_Window* window, SDL_Renderer* renderer, const bool DEBUG = false) {
         TTF_Font* font = TTF_OpenFont("font.ttf", 16);
         bool running = true;
+
+        ScriptManager::runStart();
 
         while (running) {
             Input::Update();
@@ -44,6 +49,7 @@ namespace Engine {
             }
 
             SDL_RenderPresent(renderer);
+            SDL_Delay(300);
         }
 
         TTF_CloseFont(font);
@@ -52,6 +58,7 @@ namespace Engine {
     // Quit the engine
     void QuitEngine(SDL_Window* window, SDL_Renderer* renderer)
     {
+        ScriptManager::shutdown();
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         SDL_Quit();

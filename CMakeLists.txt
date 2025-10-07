@@ -30,7 +30,7 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 find_package(pybind11 REQUIRED)
 
 # ---------- Engine Core Library ----------
-add_library(engine_core STATIC ${ENGINE_SRC_ALL})
+add_library(engine_core SHARED ${ENGINE_SRC_ALL})
 set_target_properties(engine_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(engine_core PRIVATE ${PROJECT_SOURCE_DIR}/includes)
 target_link_libraries(engine_core
@@ -38,12 +38,15 @@ target_link_libraries(engine_core
         SDL2::SDL2
         SDL2_image::SDL2_image
         SDL2_ttf::SDL2_ttf
+        Python3::Python
 )
 
 # ---------- Executable (ELF) ----------
 add_executable(engine_exe ${MAIN_CPP})
 target_include_directories(engine_exe PRIVATE ${PROJECT_SOURCE_DIR}/includes)
-target_link_libraries(engine_exe PRIVATE engine_core)
+target_link_libraries(engine_exe PRIVATE engine_core
+    Python3::Python
+)
 
 set_target_properties(engine_exe PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -60,6 +63,7 @@ set_target_properties(engine PROPERTIES
 )
 target_include_directories(engine PRIVATE
         ${Python3_INCLUDE_DIRS}
+        /usr/include/python3.13
         ${pybind11_INCLUDE_DIRS}
         ${PROJECT_SOURCE_DIR}/includes
 )
@@ -67,6 +71,7 @@ target_link_libraries(engine
         PRIVATE
         engine_core
         pybind11::module
+        Python3::Python
         SDL2::SDL2
         SDL2_image::SDL2_image
         SDL2_ttf::SDL2_ttf
